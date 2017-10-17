@@ -6,13 +6,20 @@
 </head>
 
 <body ng-app="beerList">
-    <div class="container">
+    <div class="container" ng-controller="mainCtrl">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <h1 class="text-center">BeerList</h1>
                 <div class="page-header">
                 </div>
                 <!-- render beers here -->
+                <div class="row beers-list">
+                    <div class="beer" ng-repeat="beer in beers">
+                        <img class="beer-image" ng-src="{{beer.image_url}}">
+                        {{beer.name}} {{beer.style}} {{beer.abv}}
+                        <a ng-click="removeBeer()">Remove</a>
+                    </div>
+                </div>
                 <form ng-submit="addBeer()">
                     <h3>Add a new beer</h3>
                     <div class="form-group">
@@ -27,7 +34,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control" placeholder="Image URL" ng-model="image"></input>
                     </div>
-                    <button type="button" class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>
         </div>
