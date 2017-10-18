@@ -5,12 +5,19 @@ app.factory('beerFactory', function($http){
             method: 'GET',
             url: '/beers'
         }).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
             return angular.copy(response.data);
         }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            console.log(response);
+        });
+    }
+
+    var getBeer = function(id){
+        return $http({
+            method: 'GET',
+            url: '/beers/' + id
+        }).then(function successCallback(response) {
+            return angular.copy(response.data);
+        }, function errorCallback(response) {
             console.log(response);
         });
     }
@@ -21,12 +28,8 @@ app.factory('beerFactory', function($http){
             url: '/beers',
             data: newBeerObj
         }).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
             return angular.copy(response.data);
         }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
             console.log(response);
         });
     }
@@ -37,20 +40,42 @@ app.factory('beerFactory', function($http){
             method: 'DELETE',
             url: '/beers/' + id
         }).then(function successCallback(response) {
-            // this callback will be called asynchronously
-            // when the response is available
             return angular.copy(response.data);
         }, function errorCallback(response) {
-            // called asynchronously if an error occurs
-            // or server returns response with an error status.
+            console.log(response);
+        });
+    }
+
+    var addReview = function(id, newReviewObj){
+        return $http({
+            method: 'POST',
+            url: '/beers/' + id + '/reviews',
+            data: newReviewObj
+        }).then(function successCallback(response) {
+            return angular.copy(response.data);
+        }, function errorCallback(response) {
+            console.log(response);
+        });
+    }
+
+    var removeReview = function(id, reviewIndex){
+        return $http({
+            method: 'DELETE',
+            url: '/beers/' + id + '/reviews/' + reviewIndex,
+        }).then(function successCallback(response) {
+            return angular.copy(response.data);
+        }, function errorCallback(response) {
             console.log(response);
         });
     }
 
     return {
         getBeers:getBeers,
+        getBeer:getBeer,
         addBeer:addBeer,
-        deleteBeer:deleteBeer
+        deleteBeer:deleteBeer,
+        addReview:addReview,
+        removeReview:removeReview
     }
 });
 
